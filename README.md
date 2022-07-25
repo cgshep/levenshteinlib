@@ -1,4 +1,4 @@
-# python-editdistance
+# pyeditdistance
 A pure, minimalist, single-file Python library of various edit distance metrics.
 
 Implemented methods:
