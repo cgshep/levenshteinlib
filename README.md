@@ -47,6 +47,7 @@ s6 = "bacccdeeffhghz z"
 res = d.hamming(s5, s6) # => 6
 ```
 
+## References
 1. L. Yujian and L. Bo, "A normalized Levenshtein distance metric," 
     IEEE Transactions on Pattern Analysis and Machine Intelligence (2007).
     https://ieeexplore.ieee.org/document/4160958
