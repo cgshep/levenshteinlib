@@ -12,6 +12,32 @@ dynamic programming algorithm [2].
 
 Some basic unit tests can be executed using `pytest`
 
+Example:
+```
+from pyeditdistance import distance as d
+
+s1 = "I am Joe Bloggs"
+s2 = "I am John Gault"
+
+# Levenshtein distance
+res = d.levenshtein(s1, s2) # => 8
+
+# Levenshtein distance (recursive)
+res = d.levenshtein_recursive(s1, s2) # => 8
+
+# Normalized Levenshtein
+res = d.normalized_levenshtein(s1, s2) # => 0.4210 (approx)
+
+# Damerau-Levenshtein
+s3 = "abc"
+s4 = "cb"
+res = d.damerau_levenshtein(s3, s4) # => 2
+
+# Hamming distance
+s5 = "abcccdeeffghh zz"
+s6 = "bacccdeeffhghz z"
+res = d.hamming(s5, s6) # => 6
+```
 
 1. L. Yujian and L. Bo, "A normalized Levenshtein distance metric," 
     IEEE Transactions on Pattern Analysis and Machine Intelligence (2007).
