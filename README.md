@@ -1,2 +1,2 @@
-# levenshteinlib
-A minimalist pure Python implementation of the Levenshtein distance function and variants
+# python-editdistance
+A pure, minimalist Python library of various edit distance metrics
