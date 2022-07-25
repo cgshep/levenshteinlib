@@ -1,20 +1,28 @@
-def levenshtein(a: str, b: str) -> int:
-    """
-    Computes the Levenshtein distance: the number of
-    insertions, deletions or substitutions required
-    to transform a -> b.
+"""
+Pure, single-file implementations of various edit distances, including
+Hamming, Levenshtein, Levenshtein (normalized), Levenshtein (recursive),
+and Damerau-Levenshtein distances.
+"""
+__author__ = "Carlton Shepherd"
 
-    Uses the Wagner-Fischer dynamic programming algorithm [1,2].
+def _wagner_fischer(a: str, b: str, method: list) -> int:
+    """
+    Implements the Wagner-Fischer dynamic programming algorithm [1,2].
+
+    Counts insertions, deletions, transpositions and substitutions
+    depending on the method.
 
     1. R. Wagner and M. Fisher, "The string to string correction problem," 
     Journal of the ACM, 21:168-178, 1974.
     2. https://en.wikipedia.org/wiki/Wagner%E2%80%93Fischer_algorithm
-    
+
     Parameters:
         a: First string
         b: Second string
+        method: Distance method ("lev", "dl"), i.e. Levenshtein or
+        Damerau-Levenshtein respectively.
     Returns:
-        Levenshtein distance (integer)
+        Wagner-Fisher cost (integer).
     """
     if len(a) == 0:
         return len(b)
@@ -30,13 +38,36 @@ def levenshtein(a: str, b: str) -> int:
             if min([i, j]) == 0:
                 dist_matrix[j][i] = max(i, j)
             else:
-                dist_matrix[j][i] = min(dist_matrix[j-1][i],
+                dist_matrix[j][i] = min(dist_matrix[j-1][i], 
                                         dist_matrix[j][i-1],
                                         dist_matrix[j-1][i-1])
-            if _a[i] != _b[j]:
+
+            if method == "dl":
+                if i and j and _a[i] == _b[j-1] and _a[i-1] == _b[j]:
+                    dist_matrix[j][i] = min(
+                        dist_matrix[j][i],
+                        dist_matrix[j-2][i-2])
+
+            if  _a[i] != _b[j]:
                 dist_matrix[j][i] += 1
 
     return dist_matrix[-1][-1]
+    
+def levenshtein(a: str, b: str) -> int:
+    """
+    Computes the Levenshtein distance: the number of
+    insertions, deletions or substitutions required
+    to transform a -> b.
+
+    Uses the Wagner-Fischer dynamic programming algorithm.
+    
+    Parameters:
+        a: First string
+        b: Second string
+    Returns:
+        Levenshtein distance (integer)
+    """
+    return _wagner_fischer(a, b, "lev")
 
 
 def levenshtein_recursive(a: str, b: str) -> int:
@@ -82,40 +113,31 @@ def normalized_levenshtein(a: str, b: str) -> float:
     """
     a_len, b_len = len(a), len(b)
     d = levenshtein(a, b)
-    return (2 * d) / ((a_len+b_len) + d)
+    dem = ((a_len+b_len) + d)
+    try:
+        return (2 * d) / ((a_len+b_len) + d)
+    except ZeroDivisionError:
+        return 0.0
 
 
 def damerau_levenshtein(a: str, b: str) -> int:
     """
+    Computes the Damerau-Levenshtein distance: the number of
+    insertions, deletions, substitutions, and transpositions needed
+    to transform a -> b.
 
+    Uses the Wagner-Fischer algorithm.
+
+    Parameters:
+        a: First string
+        b: Second string
+    Returns:
+        Damerau-Levenshtein distance (integer)
     """
-    pass
+    return _wagner_fischer(a, b, "dl")
 
 
-def longest_common_subsequence(a: str, b: str) -> int:
-    """
-    Longest common subsequence (LCS), i.e. the number ofinsertions 
-    and deletions (no substitutions) to transform a -> b.
-    """
-    pass
-
-
-def jaro_distance(a: str, b: str) -> float:
-    """
-    Computes the Jaro distance, the number of transpositions
-    required to transform a -> b.
-    """
-    pass
-
-
-def jaro_winkler_distance(a: str, b: str) -> float:
-    """
-
-    """
-    pass
-
-
-def hamming_distance(a: str, b: str) -> int:
+def hamming(a: str, b: str) -> int:
     """
     Finds the Hamming distance, the number of substitutions
     (only) to transform a -> b.
@@ -130,3 +152,35 @@ def hamming_distance(a: str, b: str) -> int:
     if len(a) != len(b):
         raise ValueError("Inputs must be of equal length!")
     return sum([1 for i, j in zip(a, b) if i != j ])
+
+
+def distance(a: str, b: str, method: str):
+    """
+    Wrapper method for calculating the distance of two strings
+    based on a given method.
+
+    Parameters:
+        a: First string
+        b: Second string
+        c: Distance metric, one of: ['levenshtein',
+           'normalized_levenshtein', 'levenshtein_recurisve',
+           'damerau-levenshtein', 'hamming']
+
+    Returns:
+        Distance of a and b using the given method
+    """
+    if method == "levenshtein":
+        return levenshtein(a, b)
+    elif method == "levenshtein_recursive":
+        return levenshtein_recursive(a, b)
+    elif method == "normalized_levenshtein":
+        return normalized_levenshtein(a, b)
+    elif method == "damerau_levenshtein":
+        return damerau_levenshtein(a, b)
+    elif method == "hamming":
+        return hamming(a, b)
+    else:
+        raise ValueError("Invalid method! Must be one of: " \
+                         "['levenshtein', 'normalized_levenshtein', " \
+                         "'levenshtein_recursive', 'damerau-levenshtein', " \
+                         "'hamming']")

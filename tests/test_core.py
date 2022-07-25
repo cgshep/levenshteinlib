@@ -7,14 +7,16 @@ a2 = ""
 a3 = "123"
 a4 = "I am Joe Bloggs"
 a5 = "Good morning, Vietnam!"
-#a5 = ["test", "abc", "good morning"]
+a6 = "abc"
+a7 = "abcccdeeffghh zz"
 
 b1 = "hello"
 b2 = ""
 b3 = "0"
 b4 = "I am John Gault"
 b5 = "Good evening, Paris!"
-#b5 = ["test", "abc", "good evening"]
+b6 = "cb"
+b7 = "bacccdeeffhghz z"
 
 
 def test_levenshtein():
@@ -45,26 +47,20 @@ def test_normalized_levenshtein():
     assert d.normalized_levenshtein(a1, b1) == 0.0
     assert d.normalized_levenshtein(a1, b2) == 1.0
     assert d.normalized_levenshtein(a2, b2) == 0.0
-    assert pytest.approx(d.normalized_levenshtein(a3, b3), 1e-4) == 0.8571
-    assert pytest.approx(d.normalized_levenshtein(a4, b4), 1e-4) == 0.4210
-    assert pytest.approx(d.normalized_levenshtein(a5, b5), 1e-4) == 0.3846
+    assert pytest.approx(d.normalized_levenshtein(a3, b3), 1e-3) == 0.8571
+    assert pytest.approx(d.normalized_levenshtein(a4, b4), 1e-3) == 0.4210
+    assert pytest.approx(d.normalized_levenshtein(a5, b5), 1e-3) == 0.3846
 
 
-def test_damereau_levenshtein():
-    pass
-
-
-def test_longest_common_subsequence():
-    pass
-
-
-def test_jaro_distance():
-    pass
-
-
-def test_jaro_winkler_distance():
-    pass
+def test_damerau_levenshtein():
+    assert d.damerau_levenshtein(a2, b2) == 0
+    assert d.damerau_levenshtein(a4, b4) == 8
+    assert d.damerau_levenshtein(a6, b6) == 2
+    assert d.damerau_levenshtein(a7, b7) == 3
 
 
 def test_hamming_distance():
-    pass
+    assert d.hamming(a1, b1) == 0
+    assert d.hamming(a2, b2) == 0
+    assert d.hamming(a4, b4) == 8
+    assert d.hamming(a7, b7) == 6
