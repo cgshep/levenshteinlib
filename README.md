@@ -12,14 +12,14 @@ dynamic programming algorithm [2].
 
 Some basic unit tests can be executed using `pytest`
 
-# Installation
+## Installation
 
 ```pip install pyeditdistance```
 
 Optional (user-specific):
 ```pip install --user pyeditdistance```
 
-# Usage
+## Usage
 
 ```
 from pyeditdistance import distance as d
