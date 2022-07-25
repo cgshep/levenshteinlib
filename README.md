@@ -1,9 +1,9 @@
 # python-editdistance
-A pure, minimalist Python library of various edit distance metrics.
+A pure, minimalist, single-file Python library of various edit distance metrics.
 
 Implemented methods:
   - Levenshtein (iterative and recursive implementations)
-  - Normalized Levenshtein (using Yujian-Bo [1]).
+  - Normalized Levenshtein (using Yujian-Bo [1])
   - Damerau-Levenshtein
   - Hamming distance
 
