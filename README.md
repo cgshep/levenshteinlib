@@ -2,10 +2,10 @@
 A pure, minimalist Python library of various edit distance metrics.
 
 Implemented methods:
-    - Levenshtein (iterative and recursive implementations)
-    - Normalized Levenshtein (using Yujian-Bo [1]).
-    - Damerau-Levenshtein
-    - Hamming distance
+  - Levenshtein (iterative and recursive implementations)
+  - Normalized Levenshtein (using Yujian-Bo [1]).
+  - Damerau-Levenshtein
+  - Hamming distance
 
 Levenshtein and Damerau-Levenshtein distances use the Wagner-Fischer
 dynamic programming algorithm [2].
