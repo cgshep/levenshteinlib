@@ -9,6 +9,7 @@ a4 = "I am Joe Bloggs"
 a5 = "Good morning, Vietnam!"
 a6 = "abc"
 a7 = "abcccdeeffghh zz"
+a8 = "AAGGQQERqer"
 
 b1 = "hello"
 b2 = ""
@@ -17,6 +18,7 @@ b4 = "I am John Gault"
 b5 = "Good evening, Paris!"
 b6 = "cb"
 b7 = "bacccdeeffhghz z"
+b8 = "AaQERqer"
 
 
 def test_levenshtein():
@@ -29,6 +31,8 @@ def test_levenshtein():
     assert d.levenshtein(a4, b4) == 8
     assert d.levenshtein(b4, a4) == 8
     assert d.levenshtein(b4, a1) == 13
+    assert d.levenshtein(a7, b7) == 5
+    assert d.levenshtein(a8, b8) == 4
 
 
 def test_levenshtein_recursive():

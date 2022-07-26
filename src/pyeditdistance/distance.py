@@ -24,33 +24,37 @@ def _wagner_fischer(a: str, b: str, method: list) -> int:
     Returns:
         Wagner-Fisher cost (integer).
     """
-    if len(a) == 0:
-        return len(b)
-    elif len(b) == 0:
-        return len(a)
+    a_len, b_len = len(a), len(b)
+    if a_len < b_len:
+        return _wagner_fischer(b, a, method)
+
+    if a_len == 0:
+        return b_len
+    elif b_len == 0:
+        return a_len
 
     _a, _b  = " " + a, " " + b
     a_len, b_len = len(_a), len(_b)
     dist_matrix =  [[0] * a_len for _ in range(b_len)]
 
     for i in range(a_len):
-        for j in range(b_len):
-            if min([i, j]) == 0:
-                dist_matrix[j][i] = max(i, j)
-            else:
-                dist_matrix[j][i] = min(dist_matrix[j-1][i], 
-                                        dist_matrix[j][i-1],
-                                        dist_matrix[j-1][i-1])
+        dist_matrix[0][i] = i
+    for j in range(b_len):
+        dist_matrix[j][0] = j
 
+    for j in range(1, b_len):
+        for i in range(1, a_len):
+            if _a[i] == _b[j]:
+                dist_matrix[j][i] = dist_matrix[j-1][i-1]
+            else:
+                dist_matrix[j][i]= min(dist_matrix[j][i-1], 
+                                       dist_matrix[j-1][i],
+                                       dist_matrix[j-1][i-1]) + 1
             if method == "dl":
                 if i and j and _a[i] == _b[j-1] and _a[i-1] == _b[j]:
                     dist_matrix[j][i] = min(
                         dist_matrix[j][i],
-                        dist_matrix[j-2][i-2])
-
-            if  _a[i] != _b[j]:
-                dist_matrix[j][i] += 1
-
+                        dist_matrix[j-2][i-2]+1)
     return dist_matrix[-1][-1]
     
 def levenshtein(a: str, b: str) -> int:
