@@ -1,8 +1,10 @@
 # pyeditdistance
 
+<p>
 <img alt="PyPI" src="https://img.shields.io/pypi/v/pyeditdistance">
 <img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/pyeditdistance">
 <img alt="PyPI - License" src="https://img.shields.io/pypi/l/pyeditdistance?label=license">
+</p>
 
 A pure, minimalist Python library of various edit distance metrics. MIT-licensed, zero dependencies.
 
