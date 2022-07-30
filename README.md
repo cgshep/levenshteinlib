@@ -1,4 +1,7 @@
 # pyeditdistance
+
+[![PyPI version](https://badge.fury.io/py/pyeditdistance.svg)](https://badge.fury.io/py/pyeditdistance)
+
 A pure, minimalist, single-file Python library of various edit distance metrics.
 
 Implemented methods:
@@ -22,7 +25,7 @@ Optional (user-specific):
 
 ## Usage
 
-```
+```python
 from pyeditdistance import distance as d
 
 s1 = "I am Joe Bloggs"
