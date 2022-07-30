@@ -68,3 +68,14 @@ def test_hamming_distance():
     assert d.hamming(a2, b2) == 0
     assert d.hamming(a4, b4) == 8
     assert d.hamming(a7, b7) == 6
+
+
+def test_lcs():
+    assert d.longest_common_subsequence(a1, b1) == 5
+    assert d.longest_common_subsequence(a2, b2) == 0
+    assert d.longest_common_subsequence(a3, b3) == 0
+    assert d.longest_common_subsequence(a4, b4) == 9
+    assert d.longest_common_subsequence(a5, b5) == 13
+    assert d.longest_common_subsequence(a6, b6) == 1
+    assert d.longest_common_subsequence(a7, b7) == 13
+    assert d.longest_common_subsequence(a8, b8) == 7

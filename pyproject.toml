@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pyeditdistance"
-version = "0.0.3"
+version = "0.1"
 authors = [
   { name="Carlton Shepherd", email="carlton@linux.com" },
 ]
@@ -13,9 +13,16 @@ readme = "README.md"
 license = { file="LICENSE" }
 requires-python = ">=3.7"
 classifiers = [
+    "Development Status :: 4 - Beta",
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "Topic :: Text Processing",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
 ]
 
 [project.urls]

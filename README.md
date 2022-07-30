@@ -6,6 +6,7 @@ Implemented methods:
   - Normalized Levenshtein (using Yujian-Bo [1])
   - Damerau-Levenshtein
   - Hamming distance
+  - Longest common subsequence (LCS)
 
 Levenshtein and Damerau-Levenshtein distances use the Wagner-Fischer
 dynamic programming algorithm [2].
@@ -45,6 +46,11 @@ res = d.damerau_levenshtein(s3, s4) # => 2
 s5 = "abcccdeeffghh zz"
 s6 = "bacccdeeffhghz z"
 res = d.hamming(s5, s6) # => 6
+
+# Longest common subsequence (LCS)
+s7 = "AAGGQQERqer"
+s8 = "AaQERqer"
+res = d.longest_common_subsequence(s7, s8) # => 7
 ```
 
 ## References

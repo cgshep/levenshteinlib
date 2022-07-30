@@ -5,6 +5,7 @@ and Damerau-Levenshtein distances.
 """
 __author__ = "Carlton Shepherd"
 
+
 def _wagner_fischer(a: str, b: str, method: list) -> int:
     """
     Implements the Wagner-Fischer dynamic programming algorithm [1,2].
@@ -25,8 +26,6 @@ def _wagner_fischer(a: str, b: str, method: list) -> int:
         Wagner-Fisher cost (integer).
     """
     a_len, b_len = len(a), len(b)
-    if a_len < b_len:
-        return _wagner_fischer(b, a, method)
 
     if a_len == 0:
         return b_len
@@ -39,6 +38,7 @@ def _wagner_fischer(a: str, b: str, method: list) -> int:
 
     for i in range(a_len):
         dist_matrix[0][i] = i
+
     for j in range(b_len):
         dist_matrix[j][0] = j
 
@@ -57,6 +57,35 @@ def _wagner_fischer(a: str, b: str, method: list) -> int:
                         dist_matrix[j-2][i-2]+1)
     return dist_matrix[-1][-1]
     
+
+def _lcs_dp(a: str, b:str) -> int:
+    """
+    A somewhat simpler dynamic programming algorithm for LCS.
+
+    Parameters:
+        a: First string
+        b: Second string
+    Returns:
+        LCS length (integer)
+    """
+    if len(a) == 0 or len(b) == 0:
+        return 0
+
+    a_len, b_len = len(a)+1, len(b)+1
+    dist_matrix =  [[0] * (a_len) for _ in range(b_len)]
+
+    for j in range(b_len):
+        for i in range(a_len):
+            if i == 0 or j == 0:
+                dist_matrix[j][i] = 0
+            elif a[i-1] == b[j-1]:
+                dist_matrix[j][i] = dist_matrix[j-1][i-1]+1
+            else:
+                dist_matrix[j][i] = max(dist_matrix[j-1][i],
+                                        dist_matrix[j][i-1])
+    return dist_matrix[-1][-1]
+    
+
 def levenshtein(a: str, b: str) -> int:
     """
     Computes the Levenshtein distance: the number of
@@ -158,10 +187,24 @@ def hamming(a: str, b: str) -> int:
     return sum([1 for i, j in zip(a, b) if i != j ])
 
 
+def longest_common_subsequence(a: str, b: str) -> int:
+    """
+    Finds the longest common subsequence (LCS) of two strings.
+    
+    Parameters:
+        a: First string
+        b: Second string
+
+    Returns:
+        Longest common subsequence (integer)
+    """
+    return _lcs_dp(a, b)
+
+
 def distance(a: str, b: str, method: str):
     """
-    Wrapper method for calculating the distance of two strings
-    based on a given method.
+    Wrapper function for calculating the distance of two strings
+    using a given method.
 
     Parameters:
         a: First string
@@ -183,8 +226,10 @@ def distance(a: str, b: str, method: str):
         return damerau_levenshtein(a, b)
     elif method == "hamming":
         return hamming(a, b)
+    elif method == "lcs":
+        return longest_common_subsequence(a, b)
     else:
         raise ValueError("Invalid method! Must be one of: " \
                          "['levenshtein', 'normalized_levenshtein', " \
                          "'levenshtein_recursive', 'damerau-levenshtein', " \
-                         "'hamming']")
+                         "'lcs', 'hamming']")
