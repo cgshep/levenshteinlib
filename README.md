@@ -2,7 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/pyeditdistance.svg)](https://badge.fury.io/py/pyeditdistance)
 
-A pure, minimalist, single-file Python library of various edit distance metrics.
+A pure, minimalist, no-dependency Python library of various edit distance metrics.
 
 Implemented methods:
   - Levenshtein (iterative and recursive implementations)
