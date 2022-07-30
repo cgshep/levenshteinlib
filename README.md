@@ -1,18 +1,19 @@
 # pyeditdistance
 
-[![PyPI version](https://badge.fury.io/py/pyeditdistance.svg)](https://badge.fury.io/py/pyeditdistance)
+<img alt="PyPI" src="https://img.shields.io/pypi/v/pyeditdistance">
+<img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/pyeditdistance">
+<img alt="PyPI - License" src="https://img.shields.io/pypi/l/pyeditdistance?label=license">
 
-A pure, minimalist, no-dependency Python library of various edit distance metrics.
+A pure, minimalist Python library of various edit distance metrics. MIT-licensed, zero dependencies.
 
 Implemented methods:
-  - Levenshtein (iterative and recursive implementations)
+  - [Levenshtein](https://en.wikipedia.org/wiki/Levenshtein_distance) (iterative and recursive implementations)
   - Normalized Levenshtein (using Yujian-Bo [1])
-  - Damerau-Levenshtein
-  - Hamming distance
-  - Longest common subsequence (LCS)
+  - [Damerau-Levenshtein](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance)
+  - [Hamming distance](https://en.wikipedia.org/wiki/Hamming_distance)
+  - [Longest common subsequence (LCS)](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
 
-Levenshtein and Damerau-Levenshtein distances use the Wagner-Fischer
-dynamic programming algorithm [2].
+Levenshtein and Damerau-Levenshtein distances use the Wagner-Fischer dynamic programming algorithm [2].
 
 Some basic unit tests can be executed using `pytest`
 
